@@ -141,6 +141,7 @@ GetOptions(
 
 my ($excluded_letters, $included_letters, $pattern) =
     (decode_utf8($excluded_letters_opt), decode_utf8($included_letters_opt), decode_utf8($pattern_opt));
+say "Excluded letters intersects pattern or included letters!" if $excluded_letters && $pattern =~ /[$excluded_letters]/i or $included_letters && $excluded_letters =~ /[$included_letters]/i;
 say "+|$included_letters| -|$excluded_letters| =|$pattern|";
 
 # Read the dictionary file and store words in an array
