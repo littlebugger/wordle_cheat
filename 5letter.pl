@@ -109,10 +109,15 @@ sub filter_exluded {
 sub filter_included {
     my ($word, $included_letters) = @_;
 
-    $included_letters ? $word =~ /[$included_letters]/i : 1;
+    return 1 if not $included_letters;
+
+    my %mask_chars;
+    $mask_chars{$_} = 1 for split('', $word);
+
+    my $matches = grep { $mask_chars{$_} } split('', $included_letters);
+
+    $matches == length($included_letters);
 }
-
-
 
 # Function to display help instructions
 sub display_help {
